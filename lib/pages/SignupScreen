@@ -1,0 +1,403 @@
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const _HeaderCard(
+                progressValue: 0.25,
+                progressLabel: '1/4',
+              ),
+              const SizedBox(height: 28),
+              const Text(
+                'Finaliser votre inscription',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: _AppColors.subtitle,
+                ),
+              ),
+              const SizedBox(height: 26),
+              _buildFormFields(),
+              const SizedBox(height: 18),
+              _buildConsent(),
+              const SizedBox(height: 22),
+              _buildActions(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFormFields() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _LabeledField(
+          label: 'Adresse Email',
+          required: true,
+          child: TextField(
+            decoration: _buildFieldDecoration('Lorem ipsum'),
+          ),
+        ),
+        const SizedBox(height: 14),
+        _LabeledField(
+          label: 'Nom',
+          required: true,
+          child: TextField(
+            decoration: _buildFieldDecoration('Lorem ipsum'),
+          ),
+        ),
+        const SizedBox(height: 14),
+        _LabeledField(
+          label: 'Prénoms',
+          required: true,
+          child: TextField(
+            decoration: _buildFieldDecoration('Lorem ipsum'),
+          ),
+        ),
+        const SizedBox(height: 14),
+        _LabeledField(
+          label: 'Mot de passe',
+          required: true,
+          child: TextField(
+            obscureText: true,
+            decoration: _buildFieldDecoration('Lorem ipsum'),
+          ),
+        ),
+        const SizedBox(height: 14),
+        _LabeledField(
+          label: 'Confirmation du mot de passe',
+          required: true,
+          child: TextField(
+            obscureText: true,
+            decoration: _buildFieldDecoration('Lorem ipsum'),
+          ),
+        ),
+        const SizedBox(height: 14),
+        _LabeledField(
+          label: 'Téléphone professionnel',
+          required: true,
+          child: TextField(
+            keyboardType: TextInputType.phone,
+            decoration: _buildFieldDecoration(
+              'Lorem ipsum',
+              prefix: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: const Text(
+                  '+225',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildConsent() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 22,
+          height: 22,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: _AppColors.border, width: 1.4),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+              children: [
+                TextSpan(
+                    text: 'Je confirme avoir lu, consenti et accepté '),
+                TextSpan(
+                  text: 'les conditions d\'utilisation',
+                  style: TextStyle(color: _AppColors.linkOrange),
+                ),
+                TextSpan(text: ' et '),
+                TextSpan(
+                  text: 'Politique de confidentialité',
+                  style: TextStyle(color: _AppColors.linkOrange),
+                ),
+                TextSpan(text: ' de\nCroissance Plus.'),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActions(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _AppColors.cancelRed,
+              foregroundColor: Colors.white,
+              minimumSize: const Size.fromHeight(52),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            onPressed: () {},
+            child: const Text(
+              'Annuler',
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _AppColors.primaryBlue,
+              foregroundColor: Colors.white,
+              minimumSize: const Size.fromHeight(52),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const PreFormationScreen(),
+                ),
+              );
+            },
+            child: const Text(
+              'Suivant',
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _HeaderCard extends StatelessWidget {
+  const _HeaderCard({
+    required this.progressValue,
+    required this.progressLabel,
+  });
+
+  final double progressValue;
+  final String progressLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFC4E6E5), Color(0xFFC1E0ED)],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+        ),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.show_chart,
+                      color: _AppColors.primaryBlue,
+                      size: 28,
+                    ),
+                  ),
+                ],
+              ),
+              Flexible(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _AppColors.primaryBlue,
+                    foregroundColor: Colors.white,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 0,
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    'Voir notre site internet',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _ProgressRing(
+                value: progressValue,
+                label: progressLabel,
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: const [
+                    Text(
+                      'Création de compte',
+                      style: TextStyle(
+                        color: _AppColors.primaryBlue,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      'Suivant : Formulaire de pré-formation',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 13,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProgressRing extends StatelessWidget {
+  const _ProgressRing({required this.value, required this.label});
+
+  final double value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 80,
+      width: 80,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              border: Border.all(color: Colors.white70, width: 6),
+            ),
+          ),
+          SizedBox(
+            height: 80,
+            width: 80,
+            child: CircularProgressIndicator(
+              value: value,
+              strokeWidth: 6,
+              backgroundColor: const Color(0xFFCBC9C9),
+              valueColor: const AlwaysStoppedAnimation(_AppColors.primaryBlue),
+            ),
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              color: _AppColors.primaryBlue,
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LabeledField extends StatelessWidget {
+  const _LabeledField({
+    required this.label,
+    required this.child,
+    this.required = false,
+  });
+
+  final String label;
+  final Widget child;
+  final bool required;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              color: Colors.black87,
+              fontSize: 15,
+              fontWeight: FontWeight.normal,
+            ),
+            children: [
+              TextSpan(text: label),
+              if (required)
+                const TextSpan(
+                  text: ' *',
+                  style: TextStyle(color: Colors.redAccent),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        child,
+      ],
+    );
+  }
+}
